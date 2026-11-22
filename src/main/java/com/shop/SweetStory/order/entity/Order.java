@@ -39,7 +39,7 @@ public class Order {
     @Column(name = "decor")
     private String decor;
 
-    @Column(name = "weight")
+    @Column(name = "weight", nullable = false)
     private Double weight;
 
     @Enumerated(EnumType.STRING)

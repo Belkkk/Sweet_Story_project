@@ -2,6 +2,7 @@ package com.shop.SweetStory.auth.controller;
 
 import com.shop.SweetStory.auth.dto.AuthResponse;
 import com.shop.SweetStory.auth.dto.LoginRequest;
+import com.shop.SweetStory.auth.dto.MessageResponse;
 import com.shop.SweetStory.auth.dto.RegisterRequest;
 import com.shop.SweetStory.auth.service.AuthService;
 import com.shop.SweetStory.auth.service.AuthService.AuthSession;
@@ -12,8 +13,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Duration;
 
@@ -53,27 +56,12 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout() {
+    public ResponseEntity<MessageResponse> logout() {
         ResponseCookie clearedCookie = buildAuthCookie("", Duration.ZERO);
 
-        return ResponseEntity.noContent()
+        return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, clearedCookie.toString())
-                .build();
-    }
-
-    @DeleteMapping("/me")
-    public ResponseEntity<Void> deleteAccount(Authentication authentication) {
-        if (authentication == null || authentication.getName() == null || authentication.getName().isBlank()) {
-            throw new IllegalStateException("unauthenticated");
-        }
-
-        authService.deleteCurrentAccount(authentication.getName());
-
-        ResponseCookie clearedCookie = buildAuthCookie("", Duration.ZERO);
-
-        return ResponseEntity.noContent()
-                .header(HttpHeaders.SET_COOKIE, clearedCookie.toString())
-                .build();
+                .body(new MessageResponse("Вы успешно вышли из системы"));
     }
 
     private ResponseCookie buildAuthCookie(String value, Duration maxAge) {
@@ -82,7 +70,6 @@ public class AuthController {
                 .path("/")
                 .sameSite("Lax")
                 .maxAge(maxAge)
-                // Включи .secure(true) при работе по HTTPS (или когда фронт и бэк на разных доменах/портах по HTTPS)
                 .build();
     }
 }

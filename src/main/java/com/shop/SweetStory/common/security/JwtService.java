@@ -60,6 +60,9 @@ public class JwtService {
 
     public Long extractUserId(String token) {
         Object rawId = parseAndValidate(token).get("userId");
+        if (rawId == null) {
+            throw new JwtException("Missing userId claim in JWT");
+        }
         if (rawId instanceof Integer i) {
             return i.longValue();
         }

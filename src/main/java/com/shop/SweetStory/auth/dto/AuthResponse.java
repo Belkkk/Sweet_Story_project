@@ -1,11 +1,10 @@
 package com.shop.SweetStory.auth.dto;
 
 public record AuthResponse(
-        Long userId,
-        String email,
-        String name,
-        String phone,
-        String avatar,
-        Boolean isAdmin
+        String status,
+        UserProfileDto user
 ) {
+    public AuthResponse(UserProfileDto user) {
+        this("success", user);
+    }
 }

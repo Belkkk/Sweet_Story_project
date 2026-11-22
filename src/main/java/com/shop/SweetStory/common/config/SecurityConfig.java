@@ -3,6 +3,7 @@ package com.shop.SweetStory.common.config;
 import com.shop.SweetStory.common.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,7 +17,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
 
-    public SecurityConfig(JwtAuthFilter filter){
+    public SecurityConfig(JwtAuthFilter filter) {
         this.jwtAuthFilter = filter;
     }
 
@@ -29,6 +30,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/logout").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/**").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -40,5 +43,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
