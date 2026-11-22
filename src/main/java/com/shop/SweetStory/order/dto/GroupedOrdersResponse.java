@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-public record GroupedOrderResponse(
+public record GroupedOrdersResponse(
         Map<LocalDate, List<GroupedOrderItemResponse>> grouped_orders
 ) {
 }
