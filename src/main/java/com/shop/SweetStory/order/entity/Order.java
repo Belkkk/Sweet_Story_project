@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -41,6 +42,9 @@ public class Order {
 
     @Column(name = "weight", nullable = false)
     private Double weight;
+
+    @Column(name = "order_price", nullable = false, precision = 12, scale = 2)
+    private BigDecimal orderPrice;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)

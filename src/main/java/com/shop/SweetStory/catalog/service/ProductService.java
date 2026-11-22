@@ -50,6 +50,7 @@ public class ProductService {
         product.setDecorations(safeCopy(request.decorations()));
         product.setMinWeight(request.minWeight());
         product.setMaxWeight(request.maxWeight());
+        product.setCakePrice(request.cakePrice());
 
         Product saved = productRepository.save(product);
         return new CreateProductResponse("success", toDetailResponse(saved));
@@ -59,13 +60,30 @@ public class ProductService {
     public ActionMessageResponse updateProduct(Long id, UpdateProductRequest request) {
         Product product = findProductOrThrow(id);
 
-        product.setName(request.name().trim());
-        product.setDescription(request.description());
-        product.setImages(safeCopy(request.images()));
-        product.setFillings(safeCopy(request.fillings()));
-        product.setDecorations(safeCopy(request.decorations()));
-        product.setMinWeight(request.minWeight());
-        product.setMaxWeight(request.maxWeight());
+        if (request.name() != null && !request.name().isBlank()) {
+            product.setName(request.name().trim());
+        }
+        if (request.description() != null) {
+            product.setDescription(request.description());
+        }
+        if (request.images() != null) {
+            product.setImages(safeCopy(request.images()));
+        }
+        if (request.fillings() != null) {
+            product.setFillings(safeCopy(request.fillings()));
+        }
+        if (request.decorations() != null) {
+            product.setDecorations(safeCopy(request.decorations()));
+        }
+        if (request.minWeight() != null) {
+            product.setMinWeight(request.minWeight());
+        }
+        if (request.maxWeight() != null) {
+            product.setMaxWeight(request.maxWeight());
+        }
+        if (request.cakePrice() != null) {
+            product.setCakePrice(request.cakePrice());
+        }
 
         productRepository.save(product);
         return new ActionMessageResponse("success", "Товар успешно обновлен");
@@ -88,7 +106,8 @@ public class ProductService {
                 product.getId(),
                 product.getName(),
                 product.getPreviewImageUrl(),
-                product.getDescription()
+                product.getDescription(),
+                product.getCakePrice()
         );
     }
 
@@ -101,7 +120,8 @@ public class ProductService {
                 safeCopy(product.getFillings()),
                 safeCopy(product.getDecorations()),
                 product.getMinWeight(),
-                product.getMaxWeight()
+                product.getMaxWeight(),
+                product.getCakePrice()
         );
     }
 

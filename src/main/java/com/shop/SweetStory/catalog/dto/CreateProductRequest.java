@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public record CreateProductRequest(
@@ -20,6 +21,9 @@ public record CreateProductRequest(
         Double minWeight,
         @NotNull(message = "maxWeight is required")
         @Positive(message = "maxWeight must be positive")
-        Double maxWeight
+        Double maxWeight,
+        @NotNull(message = "cake_price is required")
+        @Positive(message = "cake_price must be positive")
+        @JsonProperty("cake_price") BigDecimal cakePrice
 ) {
 }

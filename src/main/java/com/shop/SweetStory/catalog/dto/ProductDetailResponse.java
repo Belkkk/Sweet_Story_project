@@ -2,6 +2,7 @@ package com.shop.SweetStory.catalog.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public record ProductDetailResponse(
@@ -12,5 +13,6 @@ public record ProductDetailResponse(
         @JsonProperty("available_fillings") List<String> availableFillings,
         @JsonProperty("available_decors") List<String> availableDecors,
         Double minWeight,
-        Double maxWeight
+        Double maxWeight,
+        @JsonProperty("cake_price") BigDecimal cakePrice
 ) {}

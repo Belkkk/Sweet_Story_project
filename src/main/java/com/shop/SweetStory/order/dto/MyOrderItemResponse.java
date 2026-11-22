@@ -2,6 +2,7 @@ package com.shop.SweetStory.order.dto;
 
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record MyOrderItemResponse(
@@ -19,6 +20,8 @@ public record MyOrderItemResponse(
         String decor,
 
         Double weight,
+
+        BigDecimal order_price,
 
         String order_status
 

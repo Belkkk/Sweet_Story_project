@@ -27,6 +27,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +71,16 @@ public class OrderService {
         Product product = productRepository.findById(request.product_id())
                 .orElseThrow(() -> new NoSuchElementException("Product not found with id: " + request.product_id()));
 
+        BigDecimal basePrice = product.getCakePrice();
+        if (basePrice == null) {
+            throw new IllegalStateException("Product cake_price is not set for product id: " + product.getId());
+        }
+
+        BigDecimal weightCoefficient = calculateWeightCoefficient(request.weight());
+        BigDecimal orderPrice = basePrice
+                .multiply(weightCoefficient)
+                .setScale(2, RoundingMode.HALF_UP);
+
         Order order = new Order();
         order.setDeliveryDate(request.delivery_date());
         order.setProduct(product);
@@ -76,6 +88,7 @@ public class OrderService {
         order.setFilling(request.filling());
         order.setDecor(request.decor());
         order.setWeight(request.weight());
+        order.setOrderPrice(orderPrice);
         order.setStatus(OrderStatus.PENDING);
 
         Order saved = orderRepository.save(order);
@@ -134,6 +147,14 @@ public class OrderService {
         return new ActionMessageResponse("success", "Заказ удален");
     }
 
+    private BigDecimal calculateWeightCoefficient(Double weight) {
+        if (weight == null || weight <= 0) {
+            throw new IllegalArgumentException("Order weight must be positive");
+        }
+        // При необходимости замените на свою формулу коэффициента по весу
+        return BigDecimal.valueOf(weight);
+    }
+
     private Order findOrderOrThrow(Long orderId) {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new NoSuchElementException("Order not found with id: " + orderId));
@@ -157,6 +178,7 @@ public class OrderService {
                 order.getFilling(),
                 order.getDecor(),
                 order.getWeight(),
+                order.getOrderPrice(),
                 order.getStatus().toApiValue()
         );
     }
@@ -176,6 +198,7 @@ public class OrderService {
                 order.getFilling(),
                 order.getDecor(),
                 order.getWeight(),
+                order.getOrderPrice(),
                 order.getStatus().toApiValue()
         );
     }
@@ -196,7 +219,8 @@ public class OrderService {
                 order.getProduct().getName(),
                 order.getFilling(),
                 order.getDecor(),
-                order.getWeight()
+                order.getWeight(),
+                order.getOrderPrice()
         );
     }
 
@@ -210,7 +234,8 @@ public class OrderService {
                 order.getProduct().getName(),
                 order.getFilling(),
                 order.getDecor(),
-                order.getWeight()
+                order.getWeight(),
+                order.getOrderPrice()
         );
     }
 }
