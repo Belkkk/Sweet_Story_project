@@ -25,13 +25,19 @@ public class UserController {
 
     private final AuthService authService;
     private final long expirationMs;
+    private final boolean cookieSecure;
+    private final String cookieSameSite;
 
     public UserController(
             AuthService authService,
-            @Value("${app.jwt.expiration-ms}") long expirationMs
+            @Value("${app.jwt.expiration-ms:86400000}") long expirationMs,
+            @Value("${app.jwt.cookie-secure:false}") boolean cookieSecure,
+            @Value("${app.jwt.cookie-same-site:Lax}") String cookieSameSite
     ) {
         this.authService = authService;
         this.expirationMs = expirationMs;
+        this.cookieSecure = cookieSecure;
+        this.cookieSameSite = cookieSameSite;
     }
 
     @PatchMapping("/me")
@@ -41,7 +47,12 @@ public class UserController {
     ) {
         String email = requireAuthenticatedEmail(authentication);
         AuthSession session = authService.updateProfile(email, request);
-        ResponseCookie refreshedCookie = buildAuthCookie(session.token(), Duration.ofMillis(expirationMs));
+        ResponseCookie refreshedCookie = buildAuthCookie(
+                session.token(),
+                Duration.ofMillis(expirationMs),
+                cookieSecure,
+                cookieSameSite
+        );
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, refreshedCookie.toString())
@@ -52,7 +63,12 @@ public class UserController {
     public ResponseEntity<MessageResponse> deleteMe(Authentication authentication) {
         String email = requireAuthenticatedEmail(authentication);
         authService.deleteCurrentAccount(email);
-        ResponseCookie clearedCookie = buildAuthCookie("", Duration.ZERO);
+        ResponseCookie clearedCookie = buildAuthCookie(
+                "",
+                Duration.ZERO,
+                cookieSecure,
+                cookieSameSite
+        );
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, clearedCookie.toString())
@@ -66,11 +82,17 @@ public class UserController {
         return authentication.getName();
     }
 
-    private ResponseCookie buildAuthCookie(String value, Duration maxAge) {
+    private ResponseCookie buildAuthCookie(
+            String value,
+            Duration maxAge,
+            boolean secure,
+            String sameSite
+    ) {
         return ResponseCookie.from(JwtAuthFilter.AUTH_COOKIE_NAME, value)
                 .httpOnly(true)
+                .secure(secure)
                 .path("/")
-                .sameSite("Lax")
+                .sameSite(sameSite)
                 .maxAge(maxAge)
                 .build();
     }
