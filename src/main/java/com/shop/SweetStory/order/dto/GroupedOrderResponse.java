@@ -1,4 +1,10 @@
 package com.shop.SweetStory.order.dto;
 
-public record GroupedOrderResponse() {
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+public record GroupedOrderResponse(
+        Map<LocalDate, List<GroupedOrderItemResponse>> grouped_orders
+) {
 }
