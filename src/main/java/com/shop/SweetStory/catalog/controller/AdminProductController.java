@@ -1,7 +1,8 @@
 package com.shop.SweetStory.catalog.controller;
 
+import com.shop.SweetStory.catalog.dto.ActionMessageResponse;
 import com.shop.SweetStory.catalog.dto.CreateProductRequest;
-import com.shop.SweetStory.catalog.dto.ProductSummaryResponse;
+import com.shop.SweetStory.catalog.dto.CreateProductResponse;
 import com.shop.SweetStory.catalog.dto.UpdateProductRequest;
 import com.shop.SweetStory.catalog.service.ProductService;
 import jakarta.validation.Valid;
@@ -20,23 +21,21 @@ public class AdminProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductSummaryResponse> createProduct(@Valid @RequestBody CreateProductRequest request) {
-        ProductSummaryResponse created = productService.createProduct(request);
+    public ResponseEntity<CreateProductResponse> createProduct(@Valid @RequestBody CreateProductRequest request) {
+        CreateProductResponse created = productService.createProduct(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductSummaryResponse> updateProduct(
+    public ResponseEntity<ActionMessageResponse> updateProduct(
             @PathVariable Long id,
             @Valid @RequestBody UpdateProductRequest request
     ) {
-        ProductSummaryResponse updated = productService.updateProduct(id, request);
-        return ResponseEntity.ok(updated);
+        return ResponseEntity.ok(productService.updateProduct(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ActionMessageResponse> deleteProduct(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.deleteProduct(id));
     }
 }
