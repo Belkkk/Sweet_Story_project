@@ -140,6 +140,12 @@ public class OrderService {
         );
     }
 
+    public BigDecimal getTotalRevenue() {
+        BigDecimal revenue = orderRepository.calculateTotalRevenue(OrderStatus.CANCELLED);
+        // Если заказов нет, SUM вернет null. Возвращаем 0, чтобы фронт не сломался.
+        return revenue != null ? revenue : BigDecimal.ZERO;
+    }
+
     @Transactional
     public ActionMessageResponse deleteOrder(Long orderId) {
         Order order = findOrderOrThrow(orderId);

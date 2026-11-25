@@ -1,6 +1,7 @@
 package com.shop.SweetStory.stats.controller;
 
 import com.shop.SweetStory.stats.dto.OnlineUserResponse;
+import com.shop.SweetStory.stats.dto.TotalRevenueResponse;
 import com.shop.SweetStory.stats.service.StatsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,11 @@ public class StatsController {
     @GetMapping("/online")
     public ResponseEntity<OnlineUserResponse> getOnlineUsers() {
         return ResponseEntity.ok(statsService.getOnlineUsers());
+    }
+
+    @GetMapping("/revenue")
+    public ResponseEntity<TotalRevenueResponse> getRevenue() {
+        return ResponseEntity.ok(statsService.getRevenue());
     }
 
 }
