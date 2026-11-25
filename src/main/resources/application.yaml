@@ -16,6 +16,12 @@ spring:
       hibernate:
         format_sql: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics, info
+
 app:
   jwt:
     secret: ${JWT_SECRET:dev-only-very-long-secret-key-change-in-production-123456}

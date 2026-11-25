@@ -1,5 +1,6 @@
 package com.shop.SweetStory.common.security;
 
+import com.shop.SweetStory.common.stat.ActiveUserTracker;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -21,9 +22,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     public static final String AUTH_COOKIE_NAME = "access_token";
 
     private final JwtService jwtService;
+    private final ActiveUserTracker activeUserTracker;
 
-    public JwtAuthFilter(JwtService service) {
+    public JwtAuthFilter(JwtService service, ActiveUserTracker activeUserTracker) {
         this.jwtService = service;
+        this.activeUserTracker = activeUserTracker;
     }
 
     @Override
@@ -51,8 +54,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 authentication.setDetails(userId);
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                activeUserTracker.userSeen(email);
             } catch (Exception ignored) {
-                // Невалидный или просроченный токен просто не кладёт аутентификацию в контекст
             }
         }
 
