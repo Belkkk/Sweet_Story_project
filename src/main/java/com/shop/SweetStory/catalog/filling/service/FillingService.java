@@ -13,17 +13,13 @@ import java.util.NoSuchElementException;
 @Service
 public class FillingService {
 
-    @Service
-    @Transactional(readOnly = true)
-    public class DecorationService {
-
         private final FillingRepository fillingRepository;
 
-        public DecorationService(FillingRepository repository){
+        public FillingService(FillingRepository repository){
             this.fillingRepository = repository;
         }
 
-        public FillingListResponse getAllDecorations(){
+        public FillingListResponse getAllFillings(){
             List<FillingResponse> items = fillingRepository.findAll()
                     .stream()
                     .map(this::toFillingResponse)
@@ -32,14 +28,14 @@ public class FillingService {
             return new FillingListResponse(items);
         }
 
-        public FillingResponse getDecoration(Long id){
+        public FillingResponse getFilling(Long id){
             Filling filling = findFillingOrThrow(id);
 
             return toFillingResponse(filling);
         }
 
         @Transactional
-        public CreateFillingResponse createDecoration(CreateFillingRequest request){
+        public CreateFillingResponse createFilling(CreateFillingRequest request){
             Filling filling = new Filling();
             filling.setDescription(request.description());
             filling.setName(request.name());
@@ -51,7 +47,7 @@ public class FillingService {
         }
 
         @Transactional
-        public ActionMessageResponse updateDecoration(Long id, UpdateFillingRequest request){
+        public ActionMessageResponse updateFilling(Long id, UpdateFillingRequest request){
             Filling filling = findFillingOrThrow(id);
 
             if(request.name() != null && !request.name().isBlank()){
@@ -69,7 +65,7 @@ public class FillingService {
         }
 
         @Transactional
-        public ActionMessageResponse deleteDecoration(Long id){
+        public ActionMessageResponse deleteFilling(Long id){
             Filling filling = findFillingOrThrow(id);
             fillingRepository.delete(filling);
             return new ActionMessageResponse("success", "deleted, bro");
@@ -88,9 +84,5 @@ public class FillingService {
                     filling.getPrice()
             );
         }
-
-
-
-    }
 
 }

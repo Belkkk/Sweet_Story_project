@@ -4,6 +4,7 @@ import com.shop.SweetStory.catalog.decoration.dto.CreateDecorationRequest;
 import com.shop.SweetStory.catalog.decoration.dto.CreateDecorationResponse;
 import com.shop.SweetStory.catalog.decoration.dto.UpdateDecorationRequest;
 import com.shop.SweetStory.catalog.decoration.service.DecorationService;
+import com.shop.SweetStory.catalog.generalDto.ActionMessageResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,7 @@
 package com.shop.SweetStory.catalog.product.entity;
 
+import com.shop.SweetStory.catalog.decoration.entity.Decoration;
+import com.shop.SweetStory.catalog.filling.entity.Filling;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +16,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "products")
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
@@ -37,7 +40,21 @@ public class Product {
     @Column(name = "image_url")
     private List<String> images = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "product_fillings",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "filling_id")
+    )
+    private Set<Filling> fillings = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "product_decorations",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "decoration_id")
+    )
+    private Set<Decoration> decorations = new HashSet<>();
 
     @Column(name = "min_weight")
     private Double minWeight;

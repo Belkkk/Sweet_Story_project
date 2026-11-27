@@ -7,15 +7,15 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 public record CreateProductRequest(
-
         @NotBlank(message = "name must not be empty")
         String name,
         List<String> images,
         String description,
-        @JsonProperty("fillings") List<String> fillings,
-        @JsonProperty("decorations") List<String> decorations,
+        @JsonProperty("filling_ids") Set<Long> fillingIds,
+        @JsonProperty("decoration_ids") Set<Long> decorationIds,
         @NotNull(message = "minWeight is required")
         @Positive(message = "minWeight must be positive")
         Double minWeight,
