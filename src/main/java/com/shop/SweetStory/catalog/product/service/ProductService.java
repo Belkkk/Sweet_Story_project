@@ -1,6 +1,6 @@
 package com.shop.SweetStory.catalog.product.service;
 
-import com.shop.SweetStory.catalog.product.dto.ActionMessageResponse;
+import com.shop.SweetStory.catalog.generalDto.ActionMessageResponse;
 import com.shop.SweetStory.catalog.product.dto.CreateProductRequest;
 import com.shop.SweetStory.catalog.product.dto.CreateProductResponse;
 import com.shop.SweetStory.catalog.product.dto.ProductDetailResponse;

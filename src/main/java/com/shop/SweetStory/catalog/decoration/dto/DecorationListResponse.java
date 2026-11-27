@@ -5,6 +5,6 @@ import com.shop.SweetStory.catalog.decoration.entity.Decoration;
 import java.util.List;
 
 public record DecorationListResponse (
-        List<Decoration> decorations
+        List<DecorationResponse> decorations
 ) {
 }

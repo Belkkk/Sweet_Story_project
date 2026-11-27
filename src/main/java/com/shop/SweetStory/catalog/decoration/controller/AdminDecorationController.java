@@ -1,13 +1,11 @@
 package com.shop.SweetStory.catalog.decoration.controller;
 
-import com.shop.SweetStory.catalog.decoration.dto.ActionMessageResponse;
 import com.shop.SweetStory.catalog.decoration.dto.CreateDecorationRequest;
 import com.shop.SweetStory.catalog.decoration.dto.CreateDecorationResponse;
 import com.shop.SweetStory.catalog.decoration.dto.UpdateDecorationRequest;
 import com.shop.SweetStory.catalog.decoration.service.DecorationService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -3,6 +3,7 @@ package com.shop.SweetStory.catalog.decoration.service;
 import com.shop.SweetStory.catalog.decoration.dto.*;
 import com.shop.SweetStory.catalog.decoration.entity.Decoration;
 import com.shop.SweetStory.catalog.decoration.repository.DecorationRepository;
+import com.shop.SweetStory.catalog.generalDto.ActionMessageResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +39,7 @@ public class DecorationService {
     public CreateDecorationResponse createDecoration(CreateDecorationRequest request){
         Decoration decoration = new Decoration();
         decoration.setDescription(request.description());
-        decoration.setName(request.name());
+        decoration.setName(request.name().trim());
         decoration.setPrice(request.price());
 
         Decoration saved = decorationRepository.save(decoration);

@@ -1,6 +1,5 @@
 package com.shop.SweetStory.order.controller;
 
-import com.shop.SweetStory.catalog.product.dto.ActionMessageResponse;
 import com.shop.SweetStory.order.dto.UpdateOrderStatusRequest;
 import com.shop.SweetStory.order.dto.UpdateOrderStatusResponse;
 import com.shop.SweetStory.order.service.OrderService;
