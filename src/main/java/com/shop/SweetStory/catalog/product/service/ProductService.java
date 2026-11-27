@@ -1,14 +1,14 @@
-package com.shop.SweetStory.catalog.service;
+package com.shop.SweetStory.catalog.product.service;
 
-import com.shop.SweetStory.catalog.dto.ActionMessageResponse;
-import com.shop.SweetStory.catalog.dto.CreateProductRequest;
-import com.shop.SweetStory.catalog.dto.CreateProductResponse;
-import com.shop.SweetStory.catalog.dto.ProductDetailResponse;
-import com.shop.SweetStory.catalog.dto.ProductListResponse;
-import com.shop.SweetStory.catalog.dto.ProductSummaryResponse;
-import com.shop.SweetStory.catalog.dto.UpdateProductRequest;
-import com.shop.SweetStory.catalog.entity.Product;
-import com.shop.SweetStory.catalog.repository.ProductRepository;
+import com.shop.SweetStory.catalog.product.dto.ActionMessageResponse;
+import com.shop.SweetStory.catalog.product.dto.CreateProductRequest;
+import com.shop.SweetStory.catalog.product.dto.CreateProductResponse;
+import com.shop.SweetStory.catalog.product.dto.ProductDetailResponse;
+import com.shop.SweetStory.catalog.product.dto.ProductListResponse;
+import com.shop.SweetStory.catalog.product.dto.ProductSummaryResponse;
+import com.shop.SweetStory.catalog.product.dto.UpdateProductRequest;
+import com.shop.SweetStory.catalog.product.entity.Product;
+import com.shop.SweetStory.catalog.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

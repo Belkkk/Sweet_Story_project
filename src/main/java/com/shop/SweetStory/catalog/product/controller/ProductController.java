@@ -1,8 +1,8 @@
-package com.shop.SweetStory.catalog.controller;
+package com.shop.SweetStory.catalog.product.controller;
 
-import com.shop.SweetStory.catalog.dto.ProductDetailResponse;
-import com.shop.SweetStory.catalog.dto.ProductListResponse;
-import com.shop.SweetStory.catalog.service.ProductService;
+import com.shop.SweetStory.catalog.product.dto.ProductDetailResponse;
+import com.shop.SweetStory.catalog.product.dto.ProductListResponse;
+import com.shop.SweetStory.catalog.product.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -2,9 +2,9 @@ package com.shop.SweetStory.order.service;
 
 import com.shop.SweetStory.auth.entity.User;
 import com.shop.SweetStory.auth.repository.UserRepository;
-import com.shop.SweetStory.catalog.dto.ActionMessageResponse;
-import com.shop.SweetStory.catalog.entity.Product;
-import com.shop.SweetStory.catalog.repository.ProductRepository;
+import com.shop.SweetStory.catalog.product.dto.ActionMessageResponse;
+import com.shop.SweetStory.catalog.product.entity.Product;
+import com.shop.SweetStory.catalog.product.repository.ProductRepository;
 import com.shop.SweetStory.order.dto.AdminOrderItemResponse;
 import com.shop.SweetStory.order.dto.AdminOrderResponse;
 import com.shop.SweetStory.order.dto.CreateOrderRequest;

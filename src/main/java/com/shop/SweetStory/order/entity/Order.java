@@ -1,7 +1,7 @@
 package com.shop.SweetStory.order.entity;
 
 import com.shop.SweetStory.auth.entity.User;
-import com.shop.SweetStory.catalog.entity.Product;
+import com.shop.SweetStory.catalog.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

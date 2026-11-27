@@ -1,10 +1,10 @@
-package com.shop.SweetStory.catalog.controller;
+package com.shop.SweetStory.catalog.product.controller;
 
-import com.shop.SweetStory.catalog.dto.ActionMessageResponse;
-import com.shop.SweetStory.catalog.dto.CreateProductRequest;
-import com.shop.SweetStory.catalog.dto.CreateProductResponse;
-import com.shop.SweetStory.catalog.dto.UpdateProductRequest;
-import com.shop.SweetStory.catalog.service.ProductService;
+import com.shop.SweetStory.catalog.product.dto.ActionMessageResponse;
+import com.shop.SweetStory.catalog.product.dto.CreateProductRequest;
+import com.shop.SweetStory.catalog.product.dto.CreateProductResponse;
+import com.shop.SweetStory.catalog.product.dto.UpdateProductRequest;
+import com.shop.SweetStory.catalog.product.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

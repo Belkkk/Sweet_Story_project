@@ -1,4 +1,4 @@
-package com.shop.SweetStory.catalog.dto;
+package com.shop.SweetStory.catalog.product.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
